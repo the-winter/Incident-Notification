@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.1/jquery-ui-timepicker-addon.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+ <link href="../../static/css/style.css" rel="stylesheet" type="text/css">
+ <!-- will look this way in the url. Moved to data folder -->
+ <%# <script type="text/javascript" src="../../static/js/formVariables.js"></script>%>
+<%# <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" charset="utf-8"></script>%>
+  <title>
+    Incident Notification Form
+  </title>
+</head>
+
+<body>
+
+
+  <div class="container hsform">
+  <div class="row">
+    <div class="col-sm-12">
+  <form class="form-horizontal"action="/event/<%=event.id%>/update" method='POST'>
+
+    <%- include('../partials/heading.ejs') %>
+
+        <%- include('../partials/event-form', {
+          error: locals.error,
+          event: locals.event,
+          injuryArray: locals.injuryArray,
+          locationArray: locals.locationArray,
+        }); %>
+
+            <br />
+            <div class="review-button-div">
+              <p>
+                Click to Proceed
+             </p>
+                <input type="submit" value="Review">
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../partials/page-scripts.ejs') %>
+</html>

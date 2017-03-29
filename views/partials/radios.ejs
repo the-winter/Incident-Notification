@@ -1,0 +1,12 @@
+<%# Write bootstrap radios, input: name="nature",  fields=['name1','name2'] and checked='name2' %>
+<% fields.forEach((field) => { %>
+  <input
+    data-parsley-required
+    data-parsley-trigger="input"
+    type="radio"
+    name="<%=name%>"
+    value= "<%=field%>"
+    <%= event.nature == field ? checked="checked" : '' %>
+    />
+    <%= field %>
+<% }) %>

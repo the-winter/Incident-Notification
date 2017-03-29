@@ -1,0 +1,36 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.0/parsley.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.1/jquery-ui-timepicker-addon.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="../../static/js/add-table.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $( document ).ready(function(){
+    $('[data-toggle="popover"]').popover();
+
+    $('#datepicker').datetimepicker({dateFormat: "yy-mm-dd"});
+
+
+    window.Parsley.addValidator('isDate', {
+      validate: function(value){
+        //  return !isNaN(Date.parse(value))
+        return /^((?:[1-9]\d{3})-(?:[0-1]\d)-(?:[0-3]\d)\s(?:[0-2]\d):(?:[0-5]\d))|((\d{1,2})\/(\d{1,2})\/([1-2]\d{3}),\s(\d{1,2}:\d{2}:\d{2})\s([A-Z]{2}))/.test(value)
+      },
+      messages: {
+        en: 'Please choose a date (and time)',
+      }
+
+    });
+
+    $('.injury-type-multiple').on('change', ()=> {
+      $('.injury-type-multiple').trigger('input');
+    })
+    $('form').parsley();
+    $('.injury-type-multiple').select2();
+
+    $("#ui-datepicker-div").on('click', () => {
+      $('#datepicker').trigger('input');
+    })
+});
+</script>

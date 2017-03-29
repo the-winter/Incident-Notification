@@ -1,0 +1,409 @@
+
+  <h4><b>Section One: Incident Details</b></h4><br>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="date" class="control-label">  Date and Time of Incident:</label>
+    </div>
+    <div class="col-sm-9">
+
+      <label class="error">
+        <%= error.date ? "Please select a date and time" : '' %>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="datepicker"
+        value="<%= event.date.toLocaleString() %>"
+        name="date"
+        data-parsley-is-date=""
+        data-parsley-trigger="input"
+        required
+        >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="nature" class="control-label">Nature of Incident:</label>
+    </div>
+    <div class="col-sm-9">
+      <label class="error">
+        <%= error.nature ? 'Please select an option': '' %>
+      </label>
+      <%- include('./radios',{name:'nature', fields:['Near Miss', 'First Aid', 'Medical Treatment'], checker:event.nature}) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="fname" class="control-label">First Name:</label>
+    </div>
+    <div class="col-sm-9">
+      <label class="error">
+        <%= error.fname ? 'Please enter your name' : '' %>
+      </label>
+      <input data-parsley-required type="text" data-parsley-trigger="input" class="form-control" name="fname"
+      value= <%= event.user.fname ? event.user.fname : event.fname %>>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="lname" class="control-label">Last Name:</label>
+    </div>
+    <div class="col-sm-9">
+      <label class="error">
+        <%= error.lname ? 'Please enter your last name' : '' %>
+      </label>
+      <input data-parsley-required data-parsley-trigger="input" type="text" class="form-control" name="lname"
+      value= <%= event.user.lname ? event.user.lname : event.lname %>
+      >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="siteLocation" class="needs-align control-label">Site Location at which injury sustained:</label>
+    </div>
+    <div class="col-sm-9">
+      <label class="error">
+        <%= error.siteLocation ? "Please enter location" : "" %>
+      </label>
+      <input data-parsley-trigger="input" type="text" class="form-control" name="siteLocation" value="<%=event.siteLocation%>" data-parsley-required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="activity" class="needs-align control-label">Activity in which the person was engaged at the time of injury:</label>
+    </div>
+    <div class="col-sm-9">
+      <label class="error">
+        <%=error.activity ? "Please enter activity" : "" %>
+      </label>
+      <input type="text" class="form-control" name="activity" value="<%=event.activity%>" data-parsley-required data-parsley-trigger="input">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="injuryType[]" class="needs-align control-label">Nature of Injury (please select all that apply):
+      </label>
+    </div>
+      <div class="col-sm-3">
+        <label class="error">
+          <%= error.injuryType ? "Please select one or more injuries" : "" %>
+        </label>
+        <div class="injury-details">
+          <select multiple="multiple" class="injury-type-multiple" name="injuryType[]" data-parsley-required data-parsley-trigger="input">
+            <% injuryArray.forEach((type) => { %>
+                <option
+                  value="<%=type%>"
+                  <%= event.injuryType.includes(type) ? "selected" : '' %>
+                >
+                  <%=type%>
+                </option>
+            <% })%>
+          </select>
+       </div>
+     </div>
+    </div>
+
+<div class="form-group">
+  <div class="col-sm-3">
+    <label for="injuryLocation[]" class="control-label">Location of Injury:</label>
+  </div>
+
+    <div class="col-sm-3">
+      <label class="error">
+        <%= error.injuryLocation ? "Please select one or more injuries" : "" %>
+      </label>
+        <div class="injury-details">
+        <select multiple="multiple" class="injury-type-multiple" name="injuryLocation[]" data-parsley-required data-parsley-trigger="input">
+          <% locationArray.forEach((location) => { %>
+            <option value="<%=location%>" <%= event.injuryLocation.includes(location) ? "selected" : '' %>><%=location%></option>
+         <% })%>
+        </select>
+        </div>
+    </div>
+</div>
+
+  <div class="form-group">
+    <div class="col-sm-3">
+      <label for="incidentDescription" class="control-label">Description of Incident:</label>
+
+    </div>
+    <div class="col-sm-3">
+      <label class="error">
+        <%=error.incidentDescription ? "Please enter description" : "" %>
+      </label>
+      <textarea class="form-control" name="incidentDescription" rows="3" data-parsley-required data-parsley-trigger="input"> <%=event.incidentDescription%></textarea>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h4><b>Section Two: Risk Management</b></h4><br>
+    <h4><i>The section to be completed is the Risk Assessment table under step 3. Use the following steps as a guide to help you complete the table</i></h4><br />
+    <p><b>Step 1.</b> Consider the hazards relevant to the incident. For more information about the hazard, click the icon beside the checkbox.<br>
+    </p>
+
+    <table class="table table-bordered" width="auto">
+      <tbody>
+        <tr>
+          <td>Safety Hazards </td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="popover"
+            title="Safety Hazards" data-html=true data-content="Unsafe working conditions that that can cause injury, illness and death.
+            <br><br> Examples: <ul><li>Anything that can cause spills or tripping such as cords running across the floor or ice</li>
+              <li>Anything that can cause falls such as working from heights, including ladders, scaffolds, roofs, or any raised work area</li>
+              <li>Unguarded machinery and moving machinery parts that a worker can accidentally touch</li>
+              <li>Electrical hazards like frayed cords, missing ground pins, improper wiring</li>
+              <li>Confined spaces</li></ul>">
+            ?</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Biological Hazards </td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="popover"
+            title="Biological Hazards" data-html=true data-content="These include exposure to harm or disease associated with working
+              with animals, people, or infectious plant materials. Workplaces with these kinds of hazards include,
+              but are not limited to, work in schools, day care facilities, colleges and universities, hospitals, laboratories, emergency response,
+              nursing homes, or various outdoor occupations.<br><br>Examples:<ul><li>Blood and other body fluids</li>
+              <li>Fungi/mold</li><li>Bacteria and viruses</li><li>Plants</li><li>Insect bites</li><li>Animal and bird droppings</li></ul>  ">
+            ?</button>
+          </td>
+
+        </tr>
+        <tr>
+          <td>Physical Hazards</td>
+          <td>
+              <button type="button" class="btn btn-default" data-toggle="popover"
+              title="Physical Hazards" data-html=true data-content="These  can be any factors within the environment that can harm the body without
+              necessarily touching it.<br><br>Examples:<ul><li>Radiation: including ionizing, non-ionizing (EMF's, microwaves, radiowaves, etc.)</li>
+              <li>High exposure to sunlight / ultraviolet rays</li><li>Temperature extremes - hot and cold</li>
+              <li>Constant loud noise</li></ul>">
+              ?</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Ergonomic Hazards</td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="popover"
+            title="Ergonomic Hazards" data-html=true data-content="Occur when the type of work, body positions and working conditions put a strain on your body.
+            They are the hardest to spot since you don't always immediately notice the strain on your body or the harm that these hazards pose.
+            Short-term exposure may result in 'sore muscles' the next day or in the days following the exposure, but long term exposure can result
+            in serious long-term illness.<br><br>Examples:<ul><li>Improperly adjusted workstations and chairs</li>
+              <li>Frequent lifting</li><li>Poor posture</li><li>Awkward movements, especially if they are repetitive</li>
+              <li>Having to use too much force, especially if you have to do it frequently</li><li>Vibration</li></ul>">
+            ?</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Chemical Hazards</td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="popover"
+            title="Chemical Hazards" data-html=true data-content="Are present when a worker is exposed to any chemical preparation in the workplace in any form (solid, liquid or gas).
+            Some are safer than others, but to some workers who are more sensitive to chemicals, even common solutions can cause illness, skin irritation, or breathing problems.
+          <br><br>Examples:<ul><li>Liquids like cleaning products, paints, acids,solvents - ESPECIALLY if chemicals are in an unlabeled container!</li><li>Vapors and fumes that come from welding or exposure to solvents</li>
+          <li>Gases like acetylene, propane, carbon monoxide and helium</li><li>Flammable materials like gasoline, solvents, and explosive chemicals</li>
+        <li>Pesticides</li></ul>">
+            ?</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Work organization Hazards</td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="popover"
+            title="Work organization Hazards" data-html=true data-content="Hazards or stressors that cause stress (short term effects) and strain (long term effects).  These are hazards associated with workplace issues such as workload,
+            lack of control and/or respect, etc.<br><br>Examples:<ul><li>Workload demands</li><li>Workplace violence</li>
+            <li>Intensity and/or pace</li><li>Respect (or lack thereof)</li><li>Flexibility</li><li>Control or say about things</li>
+          <li>Social support or relations</li><li>Sexual harassment</li></ul>">
+            ?</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <p><b>Step 2.</b> Consider the hazards you identified in step 1 and use the risk assessment matrix below as a guide to assess the risk level</p>
+    <img id="impact-prob-chart" src="../../static/images/ProbabilityAndImpactMatrix.png" width="500px"></img>
+
+    <table class="table">
+      <thead align="left">
+        <tr>
+          <th class="left-heading">Risk Level</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5. Very High</td>
+          <td>I would not be surprised if this happened within the next few months</td>
+        </tr>
+        <tr>
+          <td>4. High</td>
+          <td>I think this could occur sometime in the coming year</td>
+        </tr>
+        <tr>
+          <td>3. Possible</td>
+          <td>I think this could occur at some point, but not necessarily in the immediate future</td>
+        </tr>
+        <tr>
+          <td>2. Low</td>
+          <td>I would be mildly surprised if this occured, but cannot entirely rule out the possibility</td>
+        </tr>
+        <tr>
+          <td>1. Very Low</td>
+          <td>I would be very surprised to see this happen, but cannot entirely rule out the possibility</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table class="table">
+      <thead align="left">
+        <tr>
+          <th class="left-heading">Consequence</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5. Critical</td>
+          <td>Loss of life, permanent disability or multiple serious injuries</td>
+        </tr>
+        <tr>
+          <td>4. Major</td>
+          <td>Serious injury (injuries) requiring specialist medical treatment or hospitalisation</td>
+        </tr>
+        <tr>
+          <td>3. Moderate</td>
+          <td>Injury requiring medical treatment or lost time</td>
+        </tr>
+        <tr>
+          <td>2. Minor</td>
+          <td>Minor injury requiring First Aid treatment (e.g. minor cuts, bruises, bumps)</td>
+        </tr>
+        <tr>
+          <td>1. Insignificant</td>
+          <td>No treatment required</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+    <p><b>Step 3.</b> Control the Risk</p>
+    <p>In the Risk Assessment table below: <br><br>
+    1. List the hazards/risks you identified in Step One. <br>
+    2. Rate their risk level (refer to information contained in Step Two to assist with this). <br>
+    3. Detail the control measures you will implement to eliminate or minimise the risk. <br><br>
+    Note: Control measures should be implemented in accordance with the preferred hierarchy of control.
+    If lower level controls (such as Administration or PPE) are to be implemented without higher level controls, it is important that the reasons are explained.
+    </p>
+    <br>
+
+    <h4>Heirarchy of Control</h4>
+    <table class="table">
+
+      <thead>
+        <tr>
+          <th>Effectiveness</th>
+          <th>Control</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Most Effective</td>
+          <td>Elimination</td>
+          <td>get rid of the dangerous machine</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Substitution</td>
+          <td>replace the machine with a safer version</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Isolation</td>
+          <td>keep the machine in a closed room and operate it remotely</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Engineering</td>
+          <td>attach guards to the machine to protect users </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Administration</td>
+          <td>train workers how to use the machine safely</td>
+        </tr>
+        <tr>
+          <td>Least Effective</td>
+          <td>Personal Protective Equipment (PPE)</td>
+          <td>wear gloves and goggles when using the machine</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+
+    <h4>Risk Assessment</h4>
+
+    <div class="hazard-wrapper">
+      <% event.hazards.forEach((hazard, index) => { %>
+      <table class="table table-bordered hazard" id="individual-asmt">
+        <thead>
+          <tr>
+            <th>1. Category</th>
+            <th>2. Description of Hazards/Risks</th>
+            <th>3. Risk Level </th>
+            <th>4. Control Measures (Note: if only Administration or PPE controls are used, please explain why.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+
+              <select data-parsley-required data-parsley-trigger="input" name="hazards[<%=index%>][safetyHazard]">
+                <option label=" "></option>
+                <option value="Safety" <%= hazard.safetyHazard == "Safety" ? "selected" : '' %>>Safety</option>
+                <option value="Biological" <%= hazard.safetyHazard == "Biological" ? "selected" : '' %>>Biological</option>
+                <option value="Physical" <%= hazard.safetyHazard == "Physical" ? "selected" : '' %>>Physical</option>
+                <option value="Ergonomic" <%= hazard.safetyHazard == "Ergonomic" ? "selected" : '' %>>Ergonomic</option>
+                <option value="Chemical" <%= hazard.safetyHazard == "Chemical" ? "selected" : '' %>>Chemical</option>
+                <option value="Work Organization" <%= hazard.safetyHazard == "Work Organization" ? "selected" : '' %>>Work Organization</option>
+            </select>
+
+            </td>
+            <td>
+            <label class="error">
+              <%= error.hazardDescription ? "Please enter description" : '' %>
+            </label>
+            <textarea rows="4" cols="20" data-parsley-required data-parsley-trigger="input" name="hazards[<%=index%>][hazardDescription]"><%=hazard.hazardDescription%></textarea>
+            <td>
+            <label class="error">
+              <%= error.riskLevel ? "Please enter risk level" : '' %>
+            </label>
+            <input data-parsley-required data-parsley-trigger="input" type="text" name="hazards[<%=index%>][riskLevel]" value="<%=hazard.riskLevel%>"></td>
+            <td>
+            <label class="error">
+              <%= error.controlMeasures ? "Please enter control measures" : '' %>
+            </label>
+            <textarea rows="4" cols="55" data-parsley-required data-parsley-trigger="input" name="hazards[<%=index%>][controlMeasures]"><%=hazard.controlMeasures%></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+      <% }) %>
+    </div>
+
+    <button id="new-table" type="button">
+      New Table
+    </button>
+    <button id="remove-table" type="button">
+      Remove Table
+    </button>

@@ -1,0 +1,35 @@
+{
+  "name": "healthandsafety",
+  "version": "1.0.0",
+  "description": "first server-side portfolio product",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha \"Error: no test specified\" && exit 1",
+    "test-debug": ".\\node_modules\\.bin\\mocha --debug-brk --inspect",
+    "start": "node app.js"
+  },
+  "author": "me",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "method-override": "^2.3.7",
+    "parsleyjs": "^2.7.0",
+    "sequelize": "^3.30.2",
+    "sqlite3": "^3.1.8"
+  },
+  "engines": {
+    "node": "6.3.1"
+  }
+}

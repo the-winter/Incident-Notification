@@ -1,0 +1,16 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "instance/db.sqlite"
+  },
+  "test": {
+    "logging": false,
+    "dialect": "sqlite",
+    "storage": "instance/test.sqlite",
+    "_comment": "I changed to sqlite from mysql"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "instance/db.sqlite"
+  }
+}
