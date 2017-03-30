@@ -9,7 +9,7 @@ The form is divided into two sections. The first section is for the specifics re
 Section two follows the three 'Thinksafe' steps: spotting the hazard(s), assessing the risk level, and outlining control measures to manage the risk(s).
 
 
-Here's a link to example deployment: [https://fast-tor-96025.herokuapp.com/](https://fast-tor-96025.herokuapp.com/).
+Here's a link to example deployment: [https://safe-plateau-22260.herokuapp.com/](https://safe-plateau-22260.herokuapp.com/).
 
 ## Screenshots
 
