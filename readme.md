@@ -11,6 +11,14 @@ Section two follows the three 'Thinksafe' steps: spotting the hazard(s), assessi
 
 Here's a link to example deployment: [https://safe-plateau-22260.herokuapp.com/](https://safe-plateau-22260.herokuapp.com/).
 
+## Features
+- Fullstack web app
+- ES6+ features including [Promises](https://github.com/the-winter/Incident-Notification/blob/master/routes/index.js#L110)
+- [Testing](https://github.com/the-winter/Incident-Notification/blob/master/test/test_app.js#L17) with mocha and chai
+- Model [associations](https://github.com/the-winter/Incident-Notification/blob/master/models/event.js#L63)
+- Front-end and back-end [validation](https://github.com/the-winter/Incident-Notification/blob/master/routes/index.js#L190)
+- [Regexp](https://github.com/the-winter/Incident-Notification/blob/master/views/partials/page-scripts.ejs#L18) for front-end custom data validation
+
 ## Screenshots
 
 ![](/public/images/screenshot0.png)
@@ -18,14 +26,6 @@ Here's a link to example deployment: [https://safe-plateau-22260.herokuapp.com/]
 ![](/public/images/screenshot2.png)
 ![](/public/images/screenshot3.png)
 
-
-## Features
-- Fullstack web app
-- ES6+ features including Promises
-- Testing with mocha and chai
-- Model associations
-- Front-end and back-end validation
-- Regexp for front-end custom data validation
 
 ### Technologies
 
